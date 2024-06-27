@@ -11,3 +11,5 @@ webName: aRTS
 .Customization and Personalization: Offer customization options for art and craft items where applicable, allowing users to request personalized modifications or commissions directly through the platform. Implement personalized recommendations based on user preferences and browsing history.
 
 .Responsive Design and Accessibility: Ensure the website is accessible and responsive across devices, including desktops, tablets, and mobile phones. Optimize for speed and performance to provide a smooth browsing experience for all users.
+
+Used: React Tooltip and React Awesome Reveal

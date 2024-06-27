@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const MyArt = () => {
-  const { user,setLoading } = useContext(authContext);
   const [myArts, setArts] = useState([]);
   const [originalArts,setOriginalArt] =useState([])
  

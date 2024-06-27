@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { authContext } from "../../AuthProvider/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Update = () => {
   const myArt = useLoaderData();
@@ -29,14 +31,14 @@ const Update = () => {
       body: JSON.stringify(art),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        toast.success('Successfully Updated')
+        console.log(data)
+      })
       .catch((error) => console.error('Error:', error));
   };
 
-  const handleDelete = (id) => {
-    // Implement delete functionality here
-    console.log(`Delete art with id: ${id}`);
-  };
+
 
   return (
     <div className="flex lg:flex-row flex-col justify-evenly m-20 p-2 items-center">
@@ -109,6 +111,8 @@ const Update = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
+
     </div>
   );
 };

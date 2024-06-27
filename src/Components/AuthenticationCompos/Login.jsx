@@ -1,61 +1,80 @@
-import { useContext } from "react"
-import { authContext } from "../AuthProvider/AuthProvider"
-import { useLocation, useNavigate } from "react-router-dom"
-import { GithubAuthProvider,getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
-import app from "../../firebase.config"
+import { useContext } from "react";
+import { authContext } from "../AuthProvider/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { GithubAuthProvider, getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import app from "../../firebase.config";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-
-    const {Login} = useContext(authContext)
+    const { Login } = useContext(authContext);
     const provider = new GoogleAuthProvider();
     const gitProvider = new GithubAuthProvider();
+    const auth = getAuth(app);
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const auth = getAuth(app)
+    const handleLogin = (e) => {
+        e.preventDefault();
 
-    const location = useLocation()
-    const navigate = useNavigate()
-    const handleLogin=e=>{
-        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
 
-        const email = e.target.email.value
-        const password = e.target.password.value
-        console.log(email,password)
-        Login(email,password)
-        .then((result) => {
-      
-            navigate(location?.state?location.state:'/')
-      
-            console.log(result.user);
-          })
-        .catch(error=>console.error(error))
-    }
+        // Password validation rules
+        const uppercaseRegex = /[A-Z]/;
+        const lowercaseRegex = /[a-z]/;
+        const minLength = 6;
 
- 
-    const handleGoogle =()=>{
+        if (!uppercaseRegex.test(password)) {
+            toast.error('Password must contain at least one uppercase letter');
+            return;
+        }
+
+        if (!lowercaseRegex.test(password)) {
+            toast.error('Password must contain at least one lowercase letter');
+            return;
+        }
+
+        if (password.length < minLength) {
+            toast.error(`Password must be at least ${minLength} characters long`);
+            return;
+        }
+
+        // Proceed with login
+        Login(email, password)
+            .then((result) => {
+                toast.success('Welcome!');
+                navigate(location?.state ? location.state : '/');
+                console.log(result.user);
+            })
+            .catch((error) => {
+                toast.error('Invalid email or password. Please try again.');
+                console.error(error);
+            });
+    };
+
+    const handleGoogle = () => {
         signInWithPopup(auth, provider)
-         .then((result) => {
-         console.log(result.user)
-         navigate(location?.state?location.state:'/')
-    
-          
-         }).catch((error) => {
-           console.error(error)
-         })
-       }
+            .then((result) => {
+                console.log(result.user);
+                navigate(location?.state ? location.state : '/');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
-       const handleGithub =()=>{
+    const handleGithub = () => {
         signInWithPopup(auth, gitProvider)
-         .then((result) => {
-         console.log(result.user)
-         navigate(location?.state?location.state:'/')
-    
-          
-         }).catch((error) => {
-           console.error(error)
-         })
-       }
+            .then((result) => {
+                console.log(result.user);
+                navigate(location?.state ? location.state : '/');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
-    
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -63,7 +82,6 @@ const Login = () => {
                     <div className="text-center lg:text-left">
                         <button className="btn bg-primary" onClick={handleGoogle}>Sign In with Google</button>
                         <button className="btn bg-black text-white  mt-4" onClick={handleGithub}>Sign In with Github</button>
-                       
                     </div>
                     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <form onSubmit={handleLogin} className="card-body">
@@ -71,26 +89,27 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input name="email" type="email" placeholder="email" className="input input-bordered" required />
+                                <input name="email" type="email" placeholder="Email" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input name="password" type="password" placeholder="password" className="input input-bordered" required />
+                                <input name="password" type="password" placeholder="Password" className="input input-bordered" required />
                                 <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                    <Link to='/register' className="label-text-alt link link-hover">Don't have an account? Register</Link>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn bg-red-400">Login</button>
+                                <button type="submit" className="btn bg-red-400">Login</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

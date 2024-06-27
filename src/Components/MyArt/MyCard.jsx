@@ -5,7 +5,7 @@ const MyCard = ({ myArt, handleDelete }) => {
 
     return (
         <div>
-            <div className="card bg-base-100 w-96 h-96  shadow-xl ">
+            <div className="mt-10 card bg-base-100 w-96 h-96  shadow-xl ">
                 <figure>
                     <img
                     className="h-full w-full object-cover"

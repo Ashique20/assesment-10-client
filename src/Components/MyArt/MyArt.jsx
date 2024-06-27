@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../AuthProvider/AuthProvider";
 import MyCard from "./MyCard";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const MyArt = () => {
   const { user,setLoading } = useContext(authContext);
@@ -54,6 +56,7 @@ const MyArt = () => {
         console.log(data)
         const remaining = myArts.filter(myArt => myArt._id !== _id)
         setArts(remaining)
+        toast.success('Deleted Art')
       })
   }
 
@@ -72,6 +75,7 @@ const MyArt = () => {
         }
       </div>
     </div>
+    <ToastContainer/>
    </div>
   );
 };

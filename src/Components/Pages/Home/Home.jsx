@@ -12,7 +12,7 @@ const Home =()=>{
         <Stats></Stats>
         <Event></Event>
         <Categories></Categories>
-        
+    
         </div>
     )
 }

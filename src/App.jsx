@@ -1,6 +1,10 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-tooltip/dist/react-tooltip.css';
+
+
 
 
 function App() {

@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { Slide } from "react-awesome-reveal";
+
 
 const Categorie = ({ categorie }) => {
     return (
-        <div>
+      <Slide>
+          <div>
             <div className="card text-red-400 bg-black w-96 h-96 shadow-xl">
                 <div className="card-body">
                     <h2 className="card-title">{categorie.Subcategory_name}</h2>
@@ -18,6 +21,7 @@ const Categorie = ({ categorie }) => {
                 </figure>
             </div>
         </div>
+      </Slide>
     )
 }
 

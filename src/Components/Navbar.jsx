@@ -4,6 +4,7 @@ import { authContext } from "./AuthProvider/AuthProvider"
 import { getAuth, signOut } from "firebase/auth"
 
 const Navbar = () => {
+    const { user,setLoading } = useContext(authContext)
     const logOut = () => {
         const auth = getAuth();
         setLoading(true)

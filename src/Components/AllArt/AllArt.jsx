@@ -6,10 +6,7 @@ const AllArt = ()=>{
     console.log(arts)
     return(
         <div className="p-2">
-            <div>
-            {arts?.map(art=><AllCard art={art} key={art._id}></AllCard>)}
-
-            </div>
+           
         </div>
     )
 }
